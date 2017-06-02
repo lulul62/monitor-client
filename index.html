@@ -4,6 +4,7 @@
 <title>Monitor</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -16,10 +17,10 @@
 <div class="collapse navbar-collapse justify-content-end" id="nav-content">   
 <ul class="navbar-nav">
 <li class="nav-item">
-<a class="nav-link" href="" data-toggle="modal" data-target="#signin">Sign In(soon)</a>
+<a class="nav-link" href="" data-toggle="modal" data-target="#signin">Se connecter</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="" data-toggle="modal" data-target="#addproject">New project</a>
+<a class="nav-link" href="" data-toggle="modal" data-target="#addproject">Nouveau projet</a>
 </li>
 </ul>
 </nav>
@@ -29,77 +30,81 @@
       <div class="col-sm-4">
        <div class="card">
           <div class="card-block">
-            <h4 class="card-title">Project 1</h4>
+            <h4 class="card-title">Projet 1</h4>
             <h6 class="card-subtitle text-muted">Client</h6>
             <div class="input-group mt-4 mb-3">
               <span class="input-group-btn">
                 <button class="btn btn-secondary" type="button">+</button>
               </span>
-              <input type="text" class="form-control" placeholder="New Task" />
+              <input type="text" class="form-control" placeholder="Nouvelle Tâche"/>
             </div>
 
             <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" />
-                Task 1
-              </label>
+              <span> 
+                Tâche 1 <span class="badge badge-success"> Actif </span>
+              </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
+                <i class="fa fa-pencil"></i> 
+              </button>
               <small>
                 <p class="text-muted">Annotation</p>
               </small>
             </div>
 
             <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" />
-                Task 2
-              </label>
-              <button type="button" class="btn btn-outline-secondary btn-sm"> + </button>
+              <span> 
+                Tâche 2 <span class="badge badge-success"> Actif </span>
+              </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
+                <i class="fa fa-pencil"></i> 
+              </button>
             </div>
 
-            <a href="#" class="card-link"> See all tasks </a>
+            <a href="#" class="card-link"> Toutes les tâches... </a>
           </div>
 
           <div class="card-footer text-center">
-            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Edit</a>
+            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Editer</a>
           </div>
         </div>
       </div>
       <div class="col-sm-4">
        <div class="card">
           <div class="card-block">
-            <h4 class="card-title">Project 2</h4>
+            <h4 class="card-title">Projet 2</h4>
             <h6 class="card-subtitle text-muted"> Client </h6>
 
             <div class="input-group mt-4 mb-3">
               <span class="input-group-btn">
                 <button class="btn btn-secondary" type="button">+</button>
               </span>
-              <input type="text" class="form-control" placeholder="New Task" />
+              <input type="text" class="form-control" placeholder="Nouvelle Tâche" />
             </div>
 
             <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" />
-                Task 1
-              </label>
+              <span> 
+                Tâche 1 <span class="badge badge-success"> Actif </span>
+              </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
+                <i class="fa fa-pencil"></i> 
+              </button>
               <small>
                 <p class="text-muted">Annotation</p>
               </small>
             </div>
 
             <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" />
-                Task 2
-              </label>
-              <button type="button" class="btn btn-outline-secondary btn-sm"> + </button>
+              <span> 
+                Tâche 2 <span class="badge badge-info"> En recette </span>
+              </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation"> <i class="fa fa-pencil"></i> </button>
             </div>
 
-            <a href="#" class="card-link"> See all tasks </a>
+            <a href="#" class="card-link"> Toutes les tâches... </a>
           </div>
 
           <div class="card-footer text-center">
-            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Edit</a>
+            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Editer</a>
           </div>
         </div>
       </div>
@@ -107,78 +112,80 @@
       <div class="col-sm-4 mb-3">
        <div class="card">
           <div class="card-block">
-            <h4 class="card-title">Project 3</h4>
+            <h4 class="card-title">Projet 3</h4>
             <h6 class="card-subtitle text-muted"> Client </h6>
 
             <div class="input-group mt-4 mb-3">
               <span class="input-group-btn">
                 <button class="btn btn-secondary" type="button">+</button>
               </span>
-              <input type="text" class="form-control" placeholder="New Task" />
+              <input type="text" class="form-control" placeholder="Nouvelle Tâche" />
             </div>
 
             <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" />
-                Task 1
-              </label>
+              <span> 
+                Tâche 1 <span class="badge badge-success"> Actif </span>
+              </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
+                <i class="fa fa-pencil"></i> 
+              </button>
               <small>
                 <p class="text-muted">Annotation</p>
               </small>
             </div>
 
             <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" />
-                Task 2
-              </label>
-              <button type="button" class="btn btn-outline-secondary btn-sm"> + </button>
+              <span> 
+                Tâche 2 <span class="badge badge-default"> Terminé </span>
+              </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation"> <i class="fa fa-pencil"></i> </button>
             </div>
 
-            <a href="#" class="card-link"> See all tasks </a>
+            <a href="#" class="card-link"> Toutes les tâches... </a>
           </div>
 
           <div class="card-footer text-center">
-            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Edit</a>
+            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Editer</a>
           </div>
         </div>
       </div>
       <div class="col-sm-4">
        <div class="card">
           <div class="card-block">
-            <h4 class="card-title">Project 4</h4>
+            <h4 class="card-title">Projet 4</h4>
             <h6 class="card-subtitle text-muted"> Client </h6>
 
             <div class="input-group mt-4 mb-3">
               <span class="input-group-btn">
                 <button class="btn btn-secondary" type="button">+</button>
               </span>
-              <input type="text" class="form-control" placeholder="New Task" />
+              <input type="text" class="form-control" placeholder="Nouvelle Tâche" />
             </div>
 
             <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" />
-                Task 1
-              </label>
+              <span> 
+                Tâche 1 <span class="badge badge-default"> Terminé </span>
+              </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
+                <i class="fa fa-pencil"></i> 
+              </button>
               <small>
                 <p class="text-muted">Annotation</p>
               </small>
             </div>
 
             <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" />
-                Task 2
-              </label>
-              <button type="button" class="btn btn-outline-secondary btn-sm"> + </button>
+              <span> 
+                Tâche 2 <span class="badge badge-default"> Terminé </span>
+              </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation"> <i class="fa fa-pencil"></i> </button>
             </div>
 
-            <a href="#" class="card-link"> See all tasks </a>
+            <a href="#" class="card-link"> Toutes les tâches... </a>
           </div>
 
           <div class="card-footer text-center">
-            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Edit</a>
+            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Editer</a>
           </div>
         </div>
       </div>
@@ -186,6 +193,44 @@
     </div> <!-- /container -->
 
 <!-- modals -->
+
+<div class="modal fade" id="Annotation" tabindex="-1" role="dialog" aria-labelledby="Edit" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Editer une tâche</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="inputNom" class="sr-only">Titre</label>
+            <input id="inputNom" type="text" class="form-control" placeholder="Nom de tâche"/>
+          </div>
+          <div class="form-group">
+            <label for="inputAnnot" class="sr-only">Client</label>
+            <input id="inputAnnot" type="text" class="form-control" placeholder="Ajouter/Modifier l'annotation"/>
+          </div>
+          <div class="form-group">
+            <label for="inputEtat" class="sr-only">Etat de la tâche</label>
+            <select id="inputEtat" class="form-control">
+              <option value=" " >Etat de la tâche</option>
+              <option> Actif </option>
+              <option> En recette </option>
+              <option> Terminé </option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-danger">Supprimer</button>
+          <button type="button" class="btn btn-primary">Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <div class="modal fade" id="Edit" tabindex="-1" role="dialog" aria-labelledby="Edit" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -193,16 +238,21 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" id="myModalLabel">Edit the project</h4>
+          <h4 class="modal-title" id="myModalLabel">Editer le projet</h4>
         </div>
         <div class="modal-body">
-          <input type="text" class="form-control" placeholder="Change the title"/>
-          </br>
-          <input type="text" class="form-control" placeholder="Change the Client"/>
+          <div class="form-group">
+            <label for="inputTitre" class="sr-only">Titre</label>
+            <input id="inputTitre" type="text" class="form-control" placeholder="Changer le titre"/>>
+          </div>
+          <div class="form-group">
+            <label for="inputClient" class="sr-only">Client</label>
+            <input id="inputClient" type="text" class="form-control" placeholder="Changer le client"/>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Edit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary">Editer</button>
         </div>
       </div>
     </div>
@@ -215,16 +265,21 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" id="myModalLabel">Add a new project</h4>
+          <h4 class="modal-title" id="myModalLabel">Ajouter un nouveau projet</h4>
         </div>
         <div class="modal-body">
-          <input type="text" class="form-control" placeholder="Title"/>
-          </br>
-          <input type="text" class="form-control" placeholder="Client"/>
+          <div class="form-group">
+            <label for="inputTitre" class="sr-only">Titre</label>
+            <input id="inputTitre" type="text" class="form-control" placeholder="Titre"/>
+          </div>
+          <div class="form-group">
+            <label for="inputClient" class="sr-only">Client</label>
+            <input id="inputClient" type="text" class="form-control" placeholder="Client"/>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Add</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary">Ajouter</button>
         </div>
       </div>
     </div>
@@ -237,21 +292,25 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="form-signin-heading">Please sign in</h4>
+          <h4 class="form-signin-heading">Veuillez vous connecter</h4>
         </div>
         <div class="modal-body">
-           <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          <div class="form-group">
+            <label for="inputEmail" class="sr-only">Identifiant</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Identifiant" required autofocus>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword" class="sr-only">Mot de passe</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+          </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me"> Se souvenir de moi
           </label>
         </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
         </div>
       </div>
     </div>
