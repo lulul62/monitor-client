@@ -41,7 +41,7 @@
             <input id="inputNom" type="text" class="form-control" placeholder="Nom de tâche"/>
           </div>
           <div class="form-group">
-            <label for="inputAnnot" class="sr-only">Clien</label>
+            <label for="inputAnnot" class="sr-only">Client</label>
             <input id="inputAnnot" type="text" class="form-control" placeholder="Ajouter/Modifier l'annotation"/>
           </div>
           <div class="form-group">
