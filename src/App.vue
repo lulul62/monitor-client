@@ -19,7 +19,10 @@
  <div class="container">
   <div class="jumbotron">
     <div class="row">
-      <app-card v-for="Projet in Projects"></app-card>
+      <div  v-if="noProject" class="col-sm-6 offset-md-3 text-center">
+        <h2>Vous n'avez actuellement aucun projet en cours</h2>
+      </div>
+      <app-card v-for="projet in projets" :projet="projet" @updateModal="updateModal"></app-card>
     </div>
    </div>
   </div> <!-- /container -->
@@ -75,11 +78,11 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="inputTitre" class="sr-only">Titre</label>
-            <input id="inputTitre" type="text" class="form-control" placeholder="Changer le titre"/>
+            <input id="inputTitre" type="text" class="form-control" v-model="modalContent.titre" placeholder="Nouveau titre"/>
           </div>
           <div class="form-group">
             <label for="inputClient" class="sr-only">Client</label>
-            <input id="inputClient" type="text" class="form-control" placeholder="Changer le client"/>
+            <input id="inputClient" type="text" class="form-control" v-model="modalContent.client" placeholder="Nouveau client"/>
           </div>
         </div>
         <div class="modal-footer">
@@ -103,11 +106,11 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="inputTitre" class="sr-only">Titre</label>
-            <input id="inputTitre" type="text" class="form-control" placeholder="Titre"/>
+            <input id="inputTitre" type="text" class="form-control" placeholder="Titre" v-model="projet.titre"/>
           </div>
           <div class="form-group">
             <label for="inputClient" class="sr-only">Client</label>
-            <input id="inputClient" type="text" class="form-control" placeholder="Client"/>
+            <input id="inputClient" type="text" class="form-control" placeholder="Client" v-model="projet.client"/>
           </div>
         </div>
         <div class="modal-footer">
@@ -157,16 +160,42 @@ export default {
   name: 'app',
   data () {
     return {
-      Projects: [
-        {title: "Projet 1"},
-        {title: "Projet 1"},
-        {title: "Projet 1"}
-      ]
+
+      projet: {},
+
+      projets: [],
+
+      modalContent: {},
+
+      PasDeProjet: true
     }
   },
   methods: {
     newProject(){
-      this.Projects.push({title: "Projet 1"});
+      if(!this.projet.titre || !this.projet.client){
+        console.log("Pas ok");
+      }else{
+        let nouveauProjet = {
+          titre: this.projet.titre,
+          client: this.projet.client
+        }
+
+        this.projets.push(nouveauProjet);
+      }
+    },
+    updateModal(projet){
+      this.modalContent = projet;
+    }
+  },
+  computed: {
+    noProject() {
+      if(this.projets.length > 0) {
+        this.PasDeProjet = false;
+      }else{
+        console.log(this.projets.length);
+        this.PasDeProjet = true;
+      }
+      return this.PasDeProjet;
     }
   }
 }

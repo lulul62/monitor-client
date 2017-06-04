@@ -1,9 +1,9 @@
 <template>
-<div class="col-sm-4">
+<div class="col-sm-4 mb-5">
         <div class="card">
           <div class="card-block">
-            <h4 class="card-title">Projet 1</h4>
-            <h6 class="card-subtitle text-muted">Client</h6>
+            <h4 class="card-title"> {{ projet.titre }} </h4>
+            <h6 class="card-subtitle text-muted"> {{ projet.client }} </h6>
             <div class="input-group mt-4 mb-3">
               <span class="input-group-btn">
                 <button class="btn btn-secondary" type="button">+</button>
@@ -39,7 +39,7 @@
           </div>
 
           <div class="card-footer text-center">
-            <a href="#" class="card-link" data-toggle="modal" data-target="#Edit">Editer</a>
+            <a href="#" class="card-link" @click="updateModal" data-toggle="modal" data-target="#Edit">Editer</a>
           </div>
         </div>
       </div>
@@ -48,9 +48,15 @@
 <script>
 export default {
   name: 'app',
+  props: ['projet'],
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      
+    }
+  },
+  methods: {
+    updateModal(){
+      this.$emit('updateModal',this.projet);
     }
   }
 }
