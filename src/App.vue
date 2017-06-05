@@ -87,7 +87,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-danger">Supprimer</button>
+          <button type="button" @click="deleteProjet(modalContent)" class="btn btn-danger">Supprimer</button>
           <button type="button" class="btn btn-primary">Editer</button>
         </div>
       </div>
@@ -182,9 +182,14 @@ export default {
 
         this.projets.push(nouveauProjet);
       }
+      $('#addproject').modal('hide');
     },
     updateModal(projet){
       this.modalContent = projet;
+    },
+    deleteProjet(projet){
+      this.projets.splice(this.projets.indexOf(projet),1);
+      $('#Edit').modal('hide');
     }
   },
   computed: {
