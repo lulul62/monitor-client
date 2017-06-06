@@ -2,7 +2,7 @@
 <div class="col-sm-4">
         <div class="card">
           <div class="card-block">
-            <h4 class="card-title">Projet 1</h4>
+            <h4 class="card-title">{{projet.titre}}</h4>
             <h6 class="card-subtitle text-muted">Client</h6>
             <div class="input-group mt-4 mb-3">
               <span class="input-group-btn">
@@ -48,6 +48,7 @@
 <script>
 export default {
   name: 'app',
+  props: ["projet"],
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

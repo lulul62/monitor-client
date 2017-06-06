@@ -19,7 +19,7 @@
  <div class="container">
   <div class="jumbotron">
     <div class="row">
-      <app-card v-for="Projet in Projects"></app-card>
+      <app-card :projet="projet" v-for="Projet in Projects"></app-card>
     </div>
    </div>
   </div> <!-- /container -->
@@ -158,9 +158,9 @@ export default {
   data () {
     return {
       Projects: [
+        {title: "Projet 1", tache : "cofefe"},
         {title: "Projet 1"},
         {title: "Projet 1"},
-        {title: "Projet 1"}
       ]
     }
   },
