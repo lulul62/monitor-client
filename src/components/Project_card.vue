@@ -2,7 +2,7 @@
 <div class="col-sm-4">
         <div class="card">
           <div class="card-block">
-            <h4 class="card-title">{{projet.titre}}</h4>
+            <h4 class="card-title">{{projet.title}}</h4>
             <h6 class="card-subtitle text-muted">Client</h6>
             <div class="input-group mt-4 mb-3">
               <span class="input-group-btn">
@@ -10,10 +10,9 @@
               </span>
               <input type="text" class="form-control" placeholder="Nouvelle Tâche"/>
             </div>
-
-            <div class="form-check">
+            <div class="form-check " v-for="tache in projet.taches">
               <span> 
-                Tâche 1 <span class="badge badge-success"> Actif </span>
+              {{tache.tache}}<span class="badge badge-success"> Actif </span>
               </span>
               <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
                 <i class="fa fa-pencil"></i> 
@@ -25,10 +24,8 @@
                 </p>
               </small>
             </div>
-
-            <div class="form-check">
               <span> 
-                Tâche 2 <span class="badge badge-success"> Actif </span>
+              Tâche 2<span class="badge badge-success"> Actif </span>
               </span>
               <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
                 <i class="fa fa-pencil"></i> 
