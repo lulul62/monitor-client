@@ -19,9 +19,6 @@
  <div class="container">
   <div class="jumbotron">
     <div class="row">
-      <div  v-if="noProject" class="col-sm-6 offset-md-3 text-center">
-        <h2>Vous n'avez actuellement aucun projet en cours</h2>
-      </div>
       <app-card v-for="projet in projets" :projet="projet" @updateModal="updateModal"></app-card>
     </div>
    </div>
@@ -158,18 +155,21 @@
 <script>
 export default {
   name: 'app',
+
   data () {
     return {
-
       projet: {},
-
       projets: [],
-
       modalContent: {},
-
-      PasDeProjet: true
+      PasDeProjet: true,
+      baseApiUrl: "https://monitor-client-bda09.firebaseio.com/projets.json",
     }
   },
+
+  created() {
+    this.getProjets();
+  },
+
   methods: {
     newProject(){
       if(!this.projet.titre || !this.projet.client){
@@ -184,24 +184,24 @@ export default {
       }
       $('#addproject').modal('hide');
     },
+
     updateModal(projet){
       this.modalContent = projet;
     },
+
     deleteProjet(projet){
       this.projets.splice(this.projets.indexOf(projet),1);
       $('#Edit').modal('hide');
-    }
-  },
-  computed: {
-    noProject() {
-      if(this.projets.length > 0) {
-        this.PasDeProjet = false;
-      }else{
-        console.log(this.projets.length);
-        this.PasDeProjet = true;
-      }
-      return this.PasDeProjet;
+    },
+
+    getProjets(){
+      this.$http.get(this.baseApiUrl).then(response=>{
+        this.projets = response.body;
+      }, response=>{
+        console.log('error');
+      })
     }
   }
+
 }
 </script>
