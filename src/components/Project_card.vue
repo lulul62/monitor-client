@@ -48,7 +48,7 @@
 <script>
 export default {
   name: 'app',
-  props: ['projet'],
+  props: ['projet','index'],
   data () {
     return {
       
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     updateModal(){
-      this.$emit('updateModal',this.projet);
+      this.$emit('updateModal',this.projet,this.index);
     }
   }
 }

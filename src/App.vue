@@ -19,7 +19,7 @@
  <div class="container">
   <div class="jumbotron">
     <div class="row">
-      <app-card v-for="projet in projets" :projet="projet" @updateModal="updateModal"></app-card>
+      <app-card v-for="projet, index in projets" :projet="projet" :index="index" @updateModal="updateModal"></app-card>
     </div>
    </div>
   </div> <!-- /container -->
@@ -75,17 +75,17 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="inputTitre" class="sr-only">Titre</label>
-            <input id="inputTitre" type="text" class="form-control" v-model="modalContent.titre" placeholder="Nouveau titre"/>
+            <input id="inputTitre" type="text" class="form-control" v-model="updatingProjet.titre" :placeholder="modalContent.titre"/>
           </div>
           <div class="form-group">
             <label for="inputClient" class="sr-only">Client</label>
-            <input id="inputClient" type="text" class="form-control" v-model="modalContent.client" placeholder="Nouveau client"/>
+            <input id="inputClient" type="text" class="form-control" v-model="updatingProjet.client" :placeholder="modalContent.client"/>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
           <button type="button" @click="deleteProjet(modalContent)" class="btn btn-danger">Supprimer</button>
-          <button type="button" class="btn btn-primary">Editer</button>
+          <button type="button" @click="updateProjet()" class="btn btn-primary">Editer</button>
         </div>
       </div>
     </div>
@@ -161,8 +161,8 @@ export default {
       projet: {},
       projets: [],
       modalContent: {},
-      PasDeProjet: true,
-      baseApiUrl: "https://monitor-client-bda09.firebaseio.com/projets.json",
+      updatingProjet: {},
+      baseApiUrl: "https://monitor-client-bda09.firebaseio.com/projets",
     }
   },
 
@@ -179,14 +179,13 @@ export default {
           titre: this.projet.titre,
           client: this.projet.client
         }
-
-        this.projets.push(nouveauProjet);
       }
       $('#addproject').modal('hide');
     },
 
-    updateModal(projet){
+    updateModal(projet,index){
       this.modalContent = projet;
+      this.modalContent.id = index;
     },
 
     deleteProjet(projet){
@@ -195,11 +194,25 @@ export default {
     },
 
     getProjets(){
-      this.$http.get(this.baseApiUrl).then(response=>{
+      this.$http.get(this.baseApiUrl+".json").then(response=>{
         this.projets = response.body;
+        console.log(Object.keys(this.projets));
       }, response=>{
         console.log('error');
       })
+    },
+
+    updateProjet(){
+      this.$http.put(this.baseApiUrl+"/"+this.modalContent.id+".json", {
+        titre: this.updatingProjet.titre,
+        client: this.updatingProjet.client
+      }).then( (response) => {
+        this.projets[this.modalContent.id] = response.body;
+      }, (response) => {
+        console.log('erreur',response)
+      })
+      $('#Edit').modal('hide');
+      this.updatingProjet = {};
     }
   }
 
