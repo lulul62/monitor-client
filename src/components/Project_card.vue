@@ -11,12 +11,16 @@
               <input type="text" class="form-control" placeholder="Nouvelle Tâche"/>
             </div>
             <div class="form-check " v-for="tache in projet.taches">
-              <span> 
+            <span v-if = "show">
+            <input>
+            <button type="button" class="fa fa-check" @click = "edit"></button>
+            </span>
+              <span v-else> 
               {{tache.tache}}<span class="badge badge-success"> Actif </span>
-              </span>
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
+              <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit">
                 <i class="fa fa-pencil"></i> 
               </button>
+              </span>
               <small>
                 <p class="text-muted">
                   Annotation 
@@ -46,9 +50,14 @@
 export default {
   name: 'app',
   props: ["projet"],
-  data () {
+  methods: {
+    edit(taches){
+      this.show = !this.show
+    }
+  },
+  data (show) {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      show: false
     }
   }
 }

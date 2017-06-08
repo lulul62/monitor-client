@@ -170,6 +170,6 @@ export default {
     newProject(){
       this.Projects.push({title: "Projet 1"});
     }
-  }
+  },
 }
 </script>
