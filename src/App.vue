@@ -179,6 +179,11 @@ export default {
           titre: this.projet.titre,
           client: this.projet.client
         }
+        this.$http.post(this.baseApiUrl+'.json',nouveauProjet).then(response => {
+            this.getProjets();
+          }, response => {
+            console.log('error');
+          })
       }
       $('#addproject').modal('hide');
     },
@@ -189,6 +194,11 @@ export default {
     },
 
     deleteProjet(projet){
+      this.$http.delete(this.baseApiUrl+"/"+this.modalContent.id+".json").then( (response) => {
+        this.getProjets();
+      }, (response) => {
+        console.log('erreur',response)
+      })
       this.projets.splice(this.projets.indexOf(projet),1);
       $('#Edit').modal('hide');
     },
