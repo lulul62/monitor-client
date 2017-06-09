@@ -28,12 +28,6 @@
                 </p>
               </small>
             </div>
-              <span> 
-              Tâche 2<span class="badge badge-success"> Actif </span>
-              </span>
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
-                <i class="fa fa-pencil"></i> 
-              </button>
             </div>
 
             <a href="#" class="card-link"> Toutes les tâches... </a>
@@ -57,7 +51,7 @@ export default {
   methods: {
     edit(tache){
       this.show = tache;
-    }
+    },
     updateModal(){
       this.$emit('updateModal',this.projet,this.index);
     }
