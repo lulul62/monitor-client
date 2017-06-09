@@ -162,7 +162,7 @@ export default {
       projets: [],
       modalContent: {},
       updatingProjet: {},
-      baseApiUrl: "https://monitor-client-bda09.firebaseio.com/projets",
+      baseApiUrl: "https://monitor-client-bda09.firebaseio.com/projets"
     }
   },
 
@@ -225,6 +225,5 @@ export default {
       this.updatingProjet = {};
     }
   }
-
 }
 </script>

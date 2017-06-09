@@ -10,14 +10,17 @@
               </span>
               <input type="text" class="form-control" placeholder="Nouvelle Tâche"/>
             </div>
-
-            <div class="form-check">
-              <span> 
-                Tâche 1 <span class="badge badge-success"> Actif </span>
-              </span>
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
+            <div class ="form-check " v-for="tache in projet.taches">
+            <span v-if = "tache == show">
+            <input v-model = "tache.tache">
+            <button type="button" class="fa fa-check" @click = "edit"></button>
+            </span>
+              <span v-else> 
+              {{tache.tache}}<span class="badge badge-success"> Actif </span>
+              <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
                 <i class="fa fa-pencil"></i> 
               </button>
+              </span>
               <small>
                 <p class="text-muted">
                   Annotation 
@@ -25,10 +28,8 @@
                 </p>
               </small>
             </div>
-
-            <div class="form-check">
               <span> 
-                Tâche 2 <span class="badge badge-success"> Actif </span>
+              Tâche 2<span class="badge badge-success"> Actif </span>
               </span>
               <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#Annotation">
                 <i class="fa fa-pencil"></i> 
@@ -47,14 +48,16 @@
 </template>
 <script>
 export default {
-  name: 'app',
   props: ['projet','index'],
   data () {
     return {
-      
+      show: false
     }
   },
   methods: {
+    edit(tache){
+      this.show = tache;
+    }
     updateModal(){
       this.$emit('updateModal',this.projet,this.index);
     }
