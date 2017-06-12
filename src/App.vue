@@ -18,6 +18,7 @@
 </nav>
  <div class="container">
   <div class="jumbotron">
+    <alert v-for="alert in alerts"></alert>
     <div class="row">
       <app-card v-for="projet, index in projets" :projet="projet" :index="index" @updateModal="updateModal"></app-card>
     </div>
@@ -84,7 +85,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" @click="deleteProjet(modalContent)" class="btn btn-danger">Supprimer</button>
+          <button type="button" @click="deleteProjet(modalContent)" id="deleteButton" class="btn btn-danger">Supprimer</button>
           <button type="button" @click="updateProjet()" class="btn btn-primary">Editer</button>
         </div>
       </div>
@@ -162,12 +163,15 @@ export default {
       projets: [],
       modalContent: {},
       updatingProjet: {},
-      baseApiUrl: "https://monitor-client-bda09.firebaseio.com/projets"
+      baseApiUrl: "https://monitor-client-bda09.firebaseio.com/projets",
+      alerts: []
     }
   },
 
   created() {
     this.getProjets();
+    console.log(this.loadingDel);
+    console.log($('#deleteButton'));
   },
 
   methods: {
@@ -186,6 +190,16 @@ export default {
           })
       }
       $('#addproject').modal('hide');
+      this.makeAlert('alert-success','Votre projet a bien été créé');
+    },
+
+    makeAlert(type,msg){
+      let alert = {
+        type: type,
+        msg: msg
+      }
+      this.alerts.push(alert);
+      console.log(this.alerts);
     },
 
     updateModal(projet,index){
@@ -197,16 +211,15 @@ export default {
       this.$http.delete(this.baseApiUrl+"/"+this.modalContent.id+".json").then( (response) => {
         this.getProjets();
       }, (response) => {
-        console.log('erreur',response)
+        console.log('erreur',response);
       })
-      this.projets.splice(this.projets.indexOf(projet),1);
       $('#Edit').modal('hide');
     },
 
     getProjets(){
       this.$http.get(this.baseApiUrl+".json").then(response=>{
         this.projets = response.body;
-        console.log(Object.keys(this.projets));
+        console.log(response);
       }, response=>{
         console.log('error');
       })

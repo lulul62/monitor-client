@@ -10,13 +10,13 @@
               </span>
               <input type="text" class="form-control" placeholder="Nouvelle Tâche"/>
             </div>
-            <div class ="form-check " v-for="tache in projet.taches">
+            <div class ="form-check " v-for="tache, index in projet.taches">
             <span v-if = "tache == show">
             <input v-model = "tache.tache">
             <button type="button" class="fa fa-check" @click = "edit"></button>
             </span>
               <span v-else> 
-              {{tache.tache}}<span class="badge badge-success"> Actif </span>
+              {{ tache.nom }}<span class="badge badge-success"> Actif </span>
               <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
                 <i class="fa fa-pencil"></i> 
               </button>
