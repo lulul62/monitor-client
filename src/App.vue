@@ -18,7 +18,7 @@
 </nav>
  <div class="container">
   <div class="jumbotron">
-    <alert v-for="alert in alerts"></alert>
+    <alert v-for="alert in alerts" :type="alert.type" :msg="alert.msg"></alert>
     <div class="row">
       <app-card v-for="projet, index in projets" :projet="projet" :index="index" @updateModal="updateModal"></app-card>
     </div>
@@ -214,6 +214,7 @@ export default {
         console.log('erreur',response);
       })
       $('#Edit').modal('hide');
+      this.makeAlert('alert-danger','Votre projet a été supprimé');
     },
 
     getProjets(){
@@ -235,6 +236,7 @@ export default {
         console.log('erreur',response)
       })
       $('#Edit').modal('hide');
+      this.makeAlert('alert-success','Votre projet a bien été modifié');
       this.updatingProjet = {};
     }
   }

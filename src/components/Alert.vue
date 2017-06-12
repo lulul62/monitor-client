@@ -1,6 +1,6 @@
   <template>
-	  <div id="alert" class="alert alert-danger alert-dismissible fade show" data-dismiss="alert" role="alert">
-	    <strong>Oh snap!</strong> Change a few things up and try submitting again.
+	  <div id="alert" class="alert alert-dismissible fade show" :class="[type]" data-dismiss="alert" role="alert">
+	    {{ msg }}
 	  </div>
   </template>
   <script>
