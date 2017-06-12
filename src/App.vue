@@ -20,6 +20,9 @@
   <div class="jumbotron">
     <alert v-for="alert in alerts" :type="alert.type" :msg="alert.msg"></alert>
     <div class="row">
+      <div v-if="loadingGet" class="col-sm-3 offset-sm-5 mt-5">
+        <i class="fa fa-spinner fa-spin fa-5x"></i>
+      </div>
       <app-card v-for="projet, index in projets" :projet="projet" :index="index" @updateModal="updateModal"></app-card>
     </div>
    </div>
@@ -84,9 +87,14 @@
           </div>
         </div>
         <div class="modal-footer">
+
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" @click="deleteProjet(modalContent)" id="deleteButton" class="btn btn-danger">Supprimer</button>
-          <button type="button" @click="updateProjet()" class="btn btn-primary">Editer</button>
+
+          <button type="button" v-if="loadingDel" id="deleteButton" class="btn btn-danger"><i class="fa fa-circle-o-notch fa-spin"></i></button>
+          <button type="button" @click="deleteProjet(modalContent)" v-else id="deleteButton" class="btn btn-danger">Supprimer</button>
+
+          <button type="button" v-if="loadingMod" class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i></button>
+          <button type="button" v-else @click="updateProjet()" class="btn btn-primary">Editer</button>
         </div>
       </div>
     </div>
@@ -113,7 +121,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <button type="button" @click="newProject" class="btn btn-primary">Ajouter</button>
+
+          <button type="button" v-if="loadingNew" class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin"></i></button>
+          <button type="button" v-else @click="newProject" class="btn btn-primary">Ajouter</button>
         </div>
       </div>
     </div>
@@ -164,7 +174,11 @@ export default {
       modalContent: {},
       updatingProjet: {},
       baseApiUrl: "https://monitor-client-bda09.firebaseio.com/projets",
-      alerts: []
+      alerts: [],
+      loadingDel: false,
+      loadingNew: false,
+      loadingMod: false,
+      loadingGet: true
     }
   },
 
@@ -179,18 +193,21 @@ export default {
       if(!this.projet.titre || !this.projet.client){
         console.log("Pas ok");
       }else{
+        this.loadingNew = true;
         let nouveauProjet = {
           titre: this.projet.titre,
           client: this.projet.client
         }
         this.$http.post(this.baseApiUrl+'.json',nouveauProjet).then(response => {
+            this.makeAlert('alert-success','Votre projet a bien été créé');
             this.getProjets();
           }, response => {
+            this.makeAlert('alert-warning','Une erreure a été rencontrée pendant la création de votre projet');
             console.log('error');
           })
       }
       $('#addproject').modal('hide');
-      this.makeAlert('alert-success','Votre projet a bien été créé');
+      this.loadingNew = false;
     },
 
     makeAlert(type,msg){
@@ -208,13 +225,16 @@ export default {
     },
 
     deleteProjet(projet){
+      this.loadingDel = true;
       this.$http.delete(this.baseApiUrl+"/"+this.modalContent.id+".json").then( (response) => {
+        this.makeAlert('alert-danger','Votre projet a été supprimé');
         this.getProjets();
       }, (response) => {
+        this.makeAlert('alert-warning','Une erreure a été rencontrée pendant la suppression de votre projet');
         console.log('erreur',response);
       })
       $('#Edit').modal('hide');
-      this.makeAlert('alert-danger','Votre projet a été supprimé');
+      this.loadingDel = false;
     },
 
     getProjets(){
@@ -224,19 +244,23 @@ export default {
       }, response=>{
         console.log('error');
       })
+      this.loadingGet = false;
     },
 
     updateProjet(){
+      this.loadingMod = true;
       this.$http.put(this.baseApiUrl+"/"+this.modalContent.id+".json", {
         titre: this.updatingProjet.titre,
         client: this.updatingProjet.client
       }).then( (response) => {
+        this.makeAlert('alert-success','Votre projet a bien été modifié');
         this.projets[this.modalContent.id] = response.body;
       }, (response) => {
+        this.makeAlert('alert-warning','Une erreure a été rencontrée pendant la modification de votre projet');
         console.log('erreur',response)
       })
+      this.loadingMod = false;
       $('#Edit').modal('hide');
-      this.makeAlert('alert-success','Votre projet a bien été modifié');
       this.updatingProjet = {};
     }
   }
