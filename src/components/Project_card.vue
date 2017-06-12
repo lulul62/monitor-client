@@ -6,9 +6,9 @@
             <h6 class="card-subtitle text-muted"> {{ projet.client }} </h6>
             <div class="input-group mt-4 mb-3">
               <span class="input-group-btn">
-                <button class="btn btn-secondary" type="button">+</button>
+                <button class="btn btn-secondary" type="button" @click = "add">+</button>
               </span>
-              <input type="text" class="form-control" placeholder="Nouvelle Tâche"/>
+              <input v-model="newtask" type="text" class="form-control" placeholder="Nouvelle Tâche"/>
             </div>
             <div class ="form-check " v-for="tache in projet.taches">
             <span v-if = "tache == show">
@@ -16,7 +16,7 @@
             <button type="button" class="fa fa-check" @click = "edit"></button>
             </span>
               <span v-else> 
-              {{tache.tache}}<span class="badge badge-success"> Actif </span>
+              {{tache.nom}}<span class="badge badge-success"> Actif </span>
               <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
                 <i class="fa fa-pencil"></i> 
               </button>
@@ -45,7 +45,8 @@ export default {
   props: ['projet','index'],
   data () {
     return {
-      show: false
+      show: false,
+      newtask: "",
     }
   },
   methods: {
@@ -54,6 +55,9 @@ export default {
     },
     updateModal(){
       this.$emit('updateModal',this.projet,this.index);
+    },
+    add(){
+      this.$emit('addtask',this.newtask,this.index);
     }
   }
 }

@@ -19,7 +19,7 @@
  <div class="container">
   <div class="jumbotron">
     <div class="row">
-      <app-card v-for="projet, index in projets" :projet="projet" :index="index" @updateModal="updateModal"></app-card>
+      <app-card v-for="projet, index in projets" :projet="projet" :index="index" @updateModal="updateModal" @addtask="addtask"></app-card>
     </div>
    </div>
   </div> <!-- /container -->
@@ -223,6 +223,18 @@ export default {
       })
       $('#Edit').modal('hide');
       this.updatingProjet = {};
+    },
+    addtask(task,index){
+       let newtask = {
+          nom: task,
+          etat: "terminé",
+        }
+      this.$http.post(this.baseApiUrl+"/"+index+"/taches.json",newtask).then( (response) => {
+        this.getProjets()
+      },
+      response => {
+        console.log('error');
+      })
     }
   }
 }
