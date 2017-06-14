@@ -12,8 +12,9 @@
             </div>
             <div class ="form-check " v-for="tache, index in projet.taches">
             <span v-if = "tache == show">
-            <input v-model = "tache.tache">
-            <button type="button" class="fa fa-check" @click = "edit"></button>
+            <input v-model = "tache.nom">
+            <button type="button" class="fa fa-check" @click = "edittask(index)"></button>
+            <button type="button" class="fa fa-times" @click = "deletetask(index)"></button>
             </span>
               <span v-else> 
               {{ tache.nom }}<span class="badge badge-success"> Actif </span>
@@ -58,7 +59,15 @@ export default {
     },
     add(){
       this.$emit('addtask',this.newtask,this.index);
-    }
+    },
+    edittask(tache){
+     this.$emit('edittask',this.show,this.index,tache);
+     this.show = false;
+    },
+    deletetask(tache){
+      this.$emit('deletetask',tache,this.index);
+      this.show = false;
+    },
   }
 }
 </script>

@@ -23,7 +23,7 @@
       <div v-if="loadingGet" class="col-sm-3 offset-sm-5 mt-5">
         <i class="fa fa-spinner fa-spin fa-5x"></i>
       </div>
-      <app-card v-for="projet, index in projets" :projet="projet" :index="index" @updateModal="updateModal" @addtask="addtask"></app-card>
+      <app-card v-for="projet, index in projets" :projet="projet" :index="index" @updateModal="updateModal" @addtask="addtask" @edittask="edittask" @deletetask="deletetask"></app-card>
     </div>
    </div>
   </div> <!-- /container -->
@@ -262,6 +262,25 @@ export default {
       this.loadingMod = false;
       $('#Edit').modal('hide');
       this.updatingProjet = {};
+    },
+    edittask(tache,projetindex,index){
+      this.$http.put(this.baseApiUrl+"/"+projetindex+"/taches/"+index+".json",{
+        nom: tache.nom,
+        etat:"terminé"
+      }).then( (response) => {
+        this.getProjets()
+      },
+      response => {
+        console.log('error');
+      })
+    },
+    deletetask(index,projetindex){
+      this.$http.delete(this.baseApiUrl+"/"+projetindex+"/taches/"+index+".json").then ( (response) => {
+        this.getProjets()
+      }, 
+      response => {
+
+      })
     },
     addtask(task,index){
        let newtask = {
