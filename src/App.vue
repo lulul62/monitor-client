@@ -202,8 +202,9 @@ export default {
             this.makeAlert('alert-success','Votre projet a bien été créé');
             this.getProjets();
           }, response => {
-            this.makeAlert('alert-warning','Une erreure a été rencontrée pendant la création de votre projet');
-            console.log('error');
+            if(response.status == 500){
+              this.makeAlert('alert-danger','Erreur interne lors de la création dans la base de donnée');
+            }
           })
       }
       $('#addproject').modal('hide');
@@ -230,8 +231,9 @@ export default {
         this.makeAlert('alert-danger','Votre projet a été supprimé');
         this.getProjets();
       }, (response) => {
-        this.makeAlert('alert-warning','Une erreure a été rencontrée pendant la suppression de votre projet');
-        console.log('erreur',response);
+        if(response.status == 500){
+          this.makeAlert('alert-danger','Erreur interne lors de la suppression dans la base de donnée');
+        }
       })
       $('#Edit').modal('hide');
       this.loadingDel = false;
@@ -242,7 +244,12 @@ export default {
         this.projets = response.body;
         console.log(response);
       }, response=>{
-        console.log('error');
+        if(response.status == 404){
+          this.makeAlert('alert-danger','Erreur 404, impossible de se connecter a la base de donnée');
+        }
+        if(response.status == 500){
+          this.makeAlert('alert-danger','Erreur interne lors de la recuperation des projets dans la base de donnée');
+        }
       })
       this.loadingGet = false;
     },
@@ -256,8 +263,9 @@ export default {
         this.makeAlert('alert-success','Votre projet a bien été modifié');
         this.projets[this.modalContent.id] = response.body;
       }, (response) => {
-        this.makeAlert('alert-warning','Une erreure a été rencontrée pendant la modification de votre projet');
-        console.log('erreur',response)
+        if(response.status == 500){
+          this.makeAlert('alert-danger','Erreur interne lors de la modification dans la base de donnée');
+        }
       })
       this.loadingMod = false;
       $('#Edit').modal('hide');
