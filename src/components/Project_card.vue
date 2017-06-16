@@ -42,13 +42,18 @@
 </div>
 </template>
 <script>
+
 export default {
   props: ['projet','index'],
   data () {
     return {
       show: false,
       newtask: "",
+      AllTasks: []
     }
+  },
+  created: function(){
+    this.getTaches();
   },
   methods: {
     edit(tache){
@@ -68,6 +73,24 @@ export default {
       this.$emit('deletetask',tache,this.index);
       this.show = false;
     },
+    getTaches(){
+      var that = this;
+      this.$http.get("https://monitor-client-bda09.firebaseio.com/projets/"+ this.index +"/taches.json").then(response=>{
+        jQuery.each(response.body, function(i,val) {
+          console.log(i);
+          console.log(val);
+          that.AllTasks.push(val);
+          console.log(that.AllTasks);
+        });
+      }, response=>{
+        if(response.status == 404){
+          this.makeAlert('alert-danger','Erreur 404, impossible de se connecter a la base de donnée');
+        }
+        if(response.status == 500){
+          this.makeAlert('alert-danger','Erreur interne lors de la recuperation des projets dans la base de donnée');
+        }
+      })
+    }
   }
 }
 </script>
