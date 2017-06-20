@@ -5,6 +5,16 @@
   </template>
   <script>
   	export default {
-  		props: ['type','msg']
+  		props: ['type','msg'],
+      created: function(){
+        this.deleteAlert();
+      },
+      methods: {
+        deleteAlert(){
+          setTimeout(function(){
+            $('#alert').alert('close');
+          },2000);
+        }
+      }
 	}
   </script>

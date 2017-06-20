@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <nav class="navbar navbar-toggleable-xl navbar-inverse bg-inverse">
  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
  </button>
@@ -258,7 +260,8 @@ export default {
       this.loadingMod = true;
       this.$http.put(this.baseApiUrl+"/"+this.modalContent.id+".json", {
         titre: this.updatingProjet.titre,
-        client: this.updatingProjet.client
+        client: this.updatingProjet.client,
+        taches: this.modalContent.taches
       }).then( (response) => {
         this.makeAlert('alert-success','Votre projet a bien été modifié');
         this.projets[this.modalContent.id] = response.body;
