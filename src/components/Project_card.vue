@@ -10,28 +10,49 @@
               </span>
               <input v-model="newtask" type="text" class="form-control" placeholder="Nouvelle Tâche"/>
             </div>
-            <div class ="form-check " v-for="tache, index in projet.taches">
-            <span v-if = "tache == show">
-            <input v-model = "tache.nom">
-            <button type="button" class="fa fa-check" @click = "edittask(index)"></button>
-            <button type="button" class="fa fa-times" @click = "deletetask(index)"></button>
-            </span>
-              <span v-else> 
-              {{ tache.nom }}<span class="badge badge-success"> Actif </span>
-              <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
-                <i class="fa fa-pencil"></i> 
-              </button>
+            <div v-if="showTasks"> 
+                <div class ="form-check " v-for="tache in AllTasks">
+                <span v-if = "tache == show">
+                <input v-model = "tache.nom">
+                <button type="button" class="fa fa-check" @click = "edittask(tache.id)"></button>
+                <button type="button" class="fa fa-times" @click = "deletetask(tache.id)"></button>
+                </span>
+                 <span v-else> 
+                  {{ tache.nom }}<span class="badge badge-success"> Actif </span>
+                  <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
+                    <i class="fa fa-pencil"></i> 
+                  </button>
+                  </span>
+                  <small>
+                    <p class="text-muted">
+                      Annotation 
+                      <i class="fa fa-times"></i>
+                    </p>
+                  </small>
+              </div>
+            </div>
+            <div v-else class ="form-check " v-for="tache, index in projet.taches">
+              <span v-if = "tache == show">
+              <input v-model = "tache.nom">
+              <button type="button" class="fa fa-check" @click = "edittask(index)"></button>
+              <button type="button" class="fa fa-times" @click = "deletetask(index)"></button>
               </span>
-              <small>
-                <p class="text-muted">
-                  Annotation 
-                  <i class="fa fa-times"></i>
-                </p>
-              </small>
+                <span v-else> 
+                {{ tache.nom }}<span class="badge badge-success"> Actif </span>
+                <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
+                  <i class="fa fa-pencil"></i> 
+                </button>
+                </span>
+                <small>
+                  <p class="text-muted">
+                    Annotation 
+                    <i class="fa fa-times"></i>
+                  </p>
+                </small>
             </div>
             </div>
 
-            <a href="#" class="card-link"> Toutes les tâches... </a>
+            <a href="#" @click="changeShowTask" class="card-link"> Toutes les tâches... </a>
           </div>
 
           <div class="card-footer text-center">
@@ -49,13 +70,20 @@ export default {
     return {
       show: false,
       newtask: "",
-      AllTasks: []
+      AllTasks: [],
+      showTasks: true
     }
   },
   created: function(){
     this.getTaches();
+    this.$on('added-task', () => {
+      console.log("heard");
+    })
   },
   methods: {
+    changeShowTask(){
+      this.showTasks = !this.showTasks;
+    },
     edit(tache){
       this.show = tache;
     },
@@ -76,10 +104,15 @@ export default {
     getTaches(){
       var that = this;
       this.$http.get("https://monitor-client-bda09.firebaseio.com/projets/"+ this.index +"/taches.json").then(response=>{
+        this.AllTasks = [];
         jQuery.each(response.body, function(i,val) {
-          console.log(i);
-          console.log(val);
-          that.AllTasks.push(val);
+          let tempoTask = {
+            nom: val.nom,
+            etat: val.etat,
+            id: i 
+          };
+          that.AllTasks.push(tempoTask);
+          that.AllTasks = that.AllTasks.splice(0,2);
           console.log(that.AllTasks);
         });
       }, response=>{
@@ -90,6 +123,11 @@ export default {
           this.makeAlert('alert-danger','Erreur interne lors de la recuperation des projets dans la base de donnée');
         }
       })
+    }
+  },
+  watch: {
+    projet: function(){
+      this.getTaches();
     }
   }
 }

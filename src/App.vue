@@ -186,14 +186,13 @@ export default {
 
   created() {
     this.getProjets();
-    console.log(this.loadingDel);
-    console.log($('#deleteButton'));
+   
   },
 
   methods: {
     newProject(){
       if(!this.projet.titre || !this.projet.client){
-        console.log("Pas ok");
+        
       }else{
         this.loadingNew = true;
         let nouveauProjet = {
@@ -219,7 +218,7 @@ export default {
         msg: msg
       }
       this.alerts.push(alert);
-      console.log(this.alerts);
+      
     },
 
     updateModal(projet,index){
@@ -244,7 +243,7 @@ export default {
     getProjets(){
       this.$http.get(this.baseApiUrl+".json").then(response=>{
         this.projets = response.body;
-        console.log(response);
+        
       }, response=>{
         if(response.status == 404){
           this.makeAlert('alert-danger','Erreur 404, impossible de se connecter a la base de donnée');
@@ -282,7 +281,7 @@ export default {
         this.getProjets()
       },
       response => {
-        console.log('error');
+        
       })
     },
     deletetask(index,projetindex){
@@ -299,10 +298,9 @@ export default {
           etat: "terminé",
         }
       this.$http.post(this.baseApiUrl+"/"+index+"/taches.json",newtask).then( (response) => {
-        this.getProjets()
+        this.getProjets();
       },
       response => {
-        console.log('error');
       })
     }
   }
