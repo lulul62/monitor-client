@@ -112,9 +112,10 @@
           <h4 class="modal-title" id="myModalLabel">Ajouter un nouveau projet</h4>
         </div>
         <div class="modal-body">
-          <div class="form-group">
+          <div class="form-group" :class="{'has-danger': errors.has('inputTitre') }">
             <label for="inputTitre" class="sr-only">Titre</label>
-            <input id="inputTitre" type="text" class="form-control" placeholder="Titre" v-model="projet.titre"/>
+            <input id="inputTitre" v-validate="'required|alpha_num'" name="inputTitre" type="text" class="form-control" placeholder="Titre" v-model="projet.titre"/>
+            <div v-if="errors.has('inputTitre')" class="form-control-feedback">{{ errors.first('inputTitre') }}</div>
           </div>
           <div class="form-group">
             <label for="inputClient" class="sr-only">Client</label>

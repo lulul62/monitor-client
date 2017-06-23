@@ -13,7 +13,7 @@
             <div v-if="showTasks"> 
                 <div class ="form-check " v-for="tache in AllTasks">
                 <span v-if = "tache == show">
-                <input v-model = "tache.nom">
+                <input class="form-control" v-model = "tache.nom">
                 <button type="button" class="fa fa-check" @click = "edittask(tache.id)"></button>
                 <button type="button" class="fa fa-times" @click = "deletetask(tache.id)"></button>
                 </span>
