@@ -277,7 +277,8 @@ export default {
     edittask(tache,projetindex,index){
       this.$http.put(this.baseApiUrl+"/"+projetindex+"/taches/"+index+".json",{
         nom: tache.nom,
-        etat:"terminé"
+        etat: tache.etat,
+        annotation: tache.annotation
       }).then( (response) => {
         this.getProjets()
       },
@@ -296,7 +297,7 @@ export default {
     addtask(task,index){
        let newtask = {
           nom: task,
-          etat: "terminé",
+          etat: "Actif",
         }
       this.$http.post(this.baseApiUrl+"/"+index+"/taches.json",newtask).then( (response) => {
         this.getProjets();

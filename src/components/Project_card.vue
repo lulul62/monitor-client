@@ -13,46 +13,65 @@
             <div v-if="showTasks"> 
                 <div class ="form-check " v-for="tache in AllTasks">
                 <span v-if = "tache == show">
-                <input class="form-control" v-model = "tache.nom">
-                <button type="button" class="fa fa-check" @click = "edittask(tache.id)"></button>
-                <button type="button" class="fa fa-times" @click = "deletetask(tache.id)"></button>
+                  <form class="form-inline">
+                    <input class="form-control col-sm-5 mr-4" v-model = "tache.nom">
+                    <select class="form-control col-sm-5" v-model = "tache.etat" value>
+                      <option value="Terminé"> Terminé </option>
+                      <option value="Actif"> Actif </option>
+                      <option value="En recette"> En recette </option>
+                    </select>
+                    <input class="form-control col-sm-11 mt-2" placeholder="Annotation" value="tache.annotation" v-model="tache.annotation">
+                    <div class="offset-sm-4 mt-2 mb-2">
+                      <button class="btn btn-outline-success btn-sm" @click = "edittask(tache.id)"><i class="fa fa-check"></i></button>
+                      <button class="btn btn-outline-danger btn-sm" @click = "deletetask(tache.id)"><i class="fa fa-times"></i></button>
+                    </div>
+                  </form>
                 </span>
                  <span v-else> 
-                  {{ tache.nom }}<span class="badge badge-success"> Actif </span>
+                  {{ tache.nom }}<span class="badge badge-success"> {{ tache.etat }} </span>
                   <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
                     <i class="fa fa-pencil"></i> 
                   </button>
-                  </span>
                   <small>
-                    <p class="text-muted">
-                      Annotation 
-                      <i class="fa fa-times"></i>
+                    <p v-if="tache.annotation" class="text-muted">
+                      {{ tache.annotation }}
                     </p>
                   </small>
+                  </span>
               </div>
             </div>
             <div v-else class ="form-check " v-for="tache, index in projet.taches">
               <span v-if = "tache == show">
-              <input v-model = "tache.nom">
-              <button type="button" class="fa fa-check" @click = "edittask(index)"></button>
-              <button type="button" class="fa fa-times" @click = "deletetask(index)"></button>
+                 <form class="form-inline">
+                    <input class="form-control col-sm-5 mr-4" v-model = "tache.nom">
+                    <select class="form-control col-sm-5" v-model="tache.etat">
+                      <option> Terminé </option>
+                      <option> Actif </option>
+                      <option> En recette </option>
+                    </select>
+                    <input class="form-control col-sm-11 mt-2" value="tache.annotation" v-model="tache.annotation">
+                    <div class="offset-sm-4 mt-2 mb-2">
+                      <button class="btn btn-outline-success btn-sm" @click = "edittask(index)"><i class="fa fa-check"></i></button>
+                      <button class="btn btn-outline-danger btn-sm" @click = "deletetask(index)"><i class="fa fa-times"></i></button>
+                    </div>
+                  </form>
               </span>
                 <span v-else> 
-                {{ tache.nom }}<span class="badge badge-success"> Actif </span>
+                {{ tache.nom }} <span class="badge badge-success"> {{ tache.etat }} </span>
                 <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
                   <i class="fa fa-pencil"></i> 
                 </button>
                 </span>
                 <small>
-                  <p class="text-muted">
-                    Annotation 
-                    <i class="fa fa-times"></i>
+                  <p v-if="tache.annotation" class="text-muted">
+                    {{ tache.annotation }}
                   </p>
                 </small>
             </div>
             </div>
 
-            <a href="#" @click="changeShowTask" class="card-link"> Toutes les tâches... </a>
+            <a @click.prevent="changeShowTask" href="#" v-if="tachesLength && showTasks" class="card-link text-center"> Tout afficher ({{tachesLength-2}} tâches de plus) </a>
+            <a @click.prevent="changeShowTask" href="#" v-else-if="tachesLength" class="card-link text-center"> Retracter </a>
           </div>
 
           <div class="card-footer text-center">
@@ -71,7 +90,8 @@ export default {
       show: false,
       newtask: "",
       AllTasks: [],
-      showTasks: true
+      showTasks: true,
+      tachesLength: false
     }
   },
   created: function(){
@@ -92,6 +112,7 @@ export default {
     },
     add(){
       this.$emit('addtask',this.newtask,this.index);
+      this.newtask = "";
     },
     edittask(tache){
      this.$emit('edittask',this.show,this.index,tache);
@@ -109,12 +130,17 @@ export default {
           let tempoTask = {
             nom: val.nom,
             etat: val.etat,
+            annotation: val.annotation,
             id: i 
           };
           that.AllTasks.push(tempoTask);
-          that.AllTasks = that.AllTasks.splice(0,2);
-          console.log(that.AllTasks);
         });
+        if(this.AllTasks.length > 2){
+          this.tachesLength = this.AllTasks.length;
+        }else{
+          this.tachesLength = false;
+        }
+        this.AllTasks = this.AllTasks.splice(0,2);
       }, response=>{
         if(response.status == 404){
           this.makeAlert('alert-danger','Erreur 404, impossible de se connecter a la base de donnée');
