@@ -28,7 +28,10 @@
                   </form>
                 </span>
                  <span v-else> 
-                  {{ tache.nom }}<span class="badge badge-success"> {{ tache.etat }} </span>
+                  {{ tache.nom }}
+                  <span v-if="tache.etat == 'Actif'" class="badge badge-success"> {{ tache.etat }} </span>
+                  <span v-else-if="tache.etat == 'Terminé'" class="badge badge-primary"> {{ tache.etat }} </span>
+                  <span v-else-if="tache.etat == 'En recette'" class="badge badge-info"> {{ tache.etat }} </span>
                   <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
                     <i class="fa fa-pencil"></i> 
                   </button>
@@ -57,7 +60,10 @@
                   </form>
               </span>
                 <span v-else> 
-                {{ tache.nom }} <span class="badge badge-success"> {{ tache.etat }} </span>
+                {{ tache.nom }} 
+                <span v-if="tache.etat == 'Actif'" class="badge badge-success"> {{ tache.etat }} </span>
+                <span v-else-if="tache.etat == 'Terminé'" class="badge badge-primary"> {{ tache.etat }} </span>
+                <span v-else-if="tache.etat == 'En recette'" class="badge badge-info"> {{ tache.etat }} </span>
                 <button type="button" class="btn btn-outline-secondary btn-sm" @click = "edit(tache)">
                   <i class="fa fa-pencil"></i> 
                 </button>
